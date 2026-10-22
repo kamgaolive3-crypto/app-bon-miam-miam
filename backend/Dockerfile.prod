@@ -1,0 +1,24 @@
+FROM php:8.3-apache
+
+RUN apt-get update && apt-get install -y \
+    unzip libzip-dev libonig-dev libxml2-dev libcurl4-openssl-dev \
+    && docker-php-ext-install pdo_mysql mbstring bcmath zip curl dom xml \
+    && a2enmod rewrite headers \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www/html
+
+COPY apache-vhost.conf /etc/apache2/sites-available/000-default.conf
+COPY . .
+
+RUN composer install \
+    --no-dev \
+    --no-interaction \
+    --prefer-dist \
+    --no-progress \
+    --optimize-autoloader \
+    && chown -R www-data:www-data storage bootstrap/cache public/img
+
+EXPOSE 80

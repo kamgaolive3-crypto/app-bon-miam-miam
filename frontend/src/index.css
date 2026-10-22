@@ -1,0 +1,232 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,400;1,700&family=Instrument+Serif:ital@0;1&display=swap");
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN SYSTEM "MON MIAM MIAM" — extrait de la maquette Figma
+   puis raffine (echelle typographique fine, ombres douces,
+   grille 8px, micro-interactions 150-250ms)
+
+   - creme    : fond general des pages (#F8F7F6)
+   - band     : bandeaux header/footer (#F3F3F3)
+   - or       : accent fort — pills actives, badges, CTA cles (#C49E4C)
+   - or-clair : CTA secondaires "Ajouter au panier", liens (#CFBD97)
+   - or-deep  : texte des prix sur fond clair (#94690C)
+   - inria    : titres serif (Inria Serif) — plats, sections, prix
+   - instrument  : logo "Mon Miam Miam" (Instrument Serif)
+   ============================================================ */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-inria: "Inria Serif", Georgia, serif;
+  --font-instrument: "Instrument Serif", Georgia, serif;
+
+  /* legacy (pages de gestion deja stylees) — conserve */
+  --color-primary: #cfbd97;
+  --color-primary-700: #C49E4C;
+  --color-primary-800: #94690C;
+  --color-secondary: #000;
+  --color-grey: #F3F3F3;
+  --color-grey-300: #c2c2c2;
+
+  /* tokens maquette */
+  --color-creme: #F8F7F6;
+  --color-band: #F3F3F3;
+  --color-or: #C49E4C;
+  --color-or-clair: #CFBD97;
+  --color-or-deep: #94690C;
+  --color-encre: #535353;
+  --color-gris-pa: #9E9595;
+  --color-creme-d: #FFFDF8;
+  --color-piste: #F5F0E9;
+  --color-bmie: #E2D8C3;
+  --color-zone: #E8E8E8;
+  --color-ligne: #F4F4F4;
+  --color-beige: #E0CCA2;
+  --color-filet: #D9D9D9;
+
+  /* ombres douces (profondeur ambiante, pas d ombres grossieres) */
+  --shadow-soft: 0 1px 2px rgb(40 30 10 / 0.05), 0 8px 24px -12px rgb(40 30 10 / 0.12);
+  --shadow-card: 0 1px 2px rgb(40 30 10 / 0.04), 0 2px 8px -2px rgb(40 30 10 / 0.06);
+  --shadow-hover: 0 2px 4px rgb(40 30 10 / 0.05), 0 14px 32px -14px rgb(40 30 10 / 0.18);
+
+  --animate-fade-up: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-pop: pop 0.3s ease-out;
+  --animate-toast: toast-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pop {
+    0% { transform: scale(1); }
+    45% { transform: scale(1.18); }
+    100% { transform: scale(1); }
+  }
+  @keyframes toast-in {
+    from { opacity: 0; transform: translateY(16px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes fade-black {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(5px); }
+    60% { transform: translateX(-3px); }
+    80% { transform: translateX(2px); }
+  }
+
+  /* tokens espace employe (pages pagesEmp, integrees depuis main) */
+  --color-emp-fond: #f8f7f6;
+  --color-emp-carre: #FFFDF8;
+  --color-emp-pab: #F2F2F2;
+  --color-emp-type: #D9D9D9;
+  --color-emp-barre-carre: #EFE8E8;
+  --color-emp-trace-pab: #535353;
+  --color-emp-valider: #C1A76D;
+  --color-emp-or-disque: #CFBF82;
+  --color-emp-commande-carre: #F7EEDC;
+  --color-emp-commande-rond: #EFE0B8;
+  --color-emp-attente-carre: #F7E2E2;
+  --color-emp-attente-rond: #F1B3B5;
+  --color-emp-attente-emoji: #FF0F0F;
+  --color-emp-bleu-carre: #E3F5F6;
+  --color-emp-bleu-rond: #AEFAFA;
+  --color-emp-bleu-emoji: #066FF9;
+  --color-emp-vert-carre: #DFF5DE;
+  --color-emp-vert-rond: #BFEFBC;
+  --color-emp-vert-emoji: #0AAF39;
+  --color-emp-beige-barre: #CFBF9B;
+  --color-emp-fond-carte: #FAFAFA;
+  --color-emp-noir-survol: #333333;
+  --color-emp-or-icone: #F0E2B8;
+  --color-emp-donut-boisson: #D0BC96;
+  --color-emp-donut-dessert: #121212;
+  --color-emp-donut-principal: #D1BF82;
+}
+
+:root {
+  --text: #000;
+  --bg: var(--color-creme);
+  --sans: "Inter", system-ui, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 15px/155% var(--sans);
+  color-scheme: light;
+  color: var(--text);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  width: 100%;
+  min-height: 100svh;
+}
+
+::selection {
+  background: var(--color-or-clair);
+  color: #000;
+}
+
+h1,
+h2 {
+  font-family: var(--sans);
+  color: var(--text);
+}
+
+p {
+  margin: 0;
+}
+
+code,
+.counter {
+  font-family: var(--mono);
+  display: inline-flex;
+  border-radius: 4px;
+  color: var(--text);
+}
+
+code {
+  font-size: 15px;
+  line-height: 135%;
+  padding: 4px 8px;
+  background: var(--color-ligne);
+}
+
+/* ================= CLASSES COMPARTIEES (raffinement) ================= */
+@layer components {
+  /* grande carte blanche : coins souples + ombre ambiante + levee au survol */
+  .miam-carte {
+    @apply rounded-2xl bg-white shadow-card transition-all duration-200
+           hover:-translate-y-0.5 hover:shadow-hover;
+  }
+
+  /* cartouche de section : petit label Inter majuscule, tres fin */
+  .miam-eyebrow {
+    @apply font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-or-deep;
+  }
+
+  /* titre de section : Inria Serif, legerement serre */
+  .miam-titre {
+    @apply font-inria text-[22px] font-bold leading-snug tracking-tight text-black md:text-[30px];
+  }
+
+  /* CTA principal beige (maquette #CFBD97) : h-10, texte fin */
+  .miam-cta {
+    @apply inline-flex h-10 cursor-pointer select-none items-center justify-center gap-2
+           rounded-[12px] bg-or-clair px-5 font-sans text-sm font-medium text-black
+           transition-all duration-150 hover:bg-or hover:-translate-y-px hover:shadow-soft
+           active:translate-y-0 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  /* CTA or fonce (actions determinantes : Commander, Utiliser mes points) */
+  .miam-cta-or {
+    @apply inline-flex h-11 cursor-pointer select-none items-center justify-center gap-2
+           rounded-[12px] bg-or px-6 font-sans text-sm font-semibold text-black
+           transition-all duration-150 hover:bg-or-deep hover:-translate-y-px hover:shadow-soft
+           active:translate-y-0 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  /* petite pill or (Ajouter, Voir plus, Copier) */
+  .miam-pill {
+    @apply inline-flex h-8 cursor-pointer select-none items-center justify-center rounded-full
+           bg-or px-4 font-inria text-sm text-black transition-all duration-150
+           hover:bg-or-deep hover:text-white active:scale-[0.96];
+  }
+
+  /* champ de formulaire : discret au repos, or au focus */
+  .miam-champ {
+    @apply h-10 w-full rounded-lg bg-white/45 px-3 text-[15px] text-black caret-or-deep
+           outline-none ring-1 ring-black/5 transition-shadow duration-150
+           placeholder:text-black/35 focus:bg-white/60 focus:ring-2 focus:ring-or;
+  }
+
+  /* etiquette de champ (Inter, petite) */
+  .miam-etiquette {
+    @apply font-sans text-[13px] font-medium text-black;
+  }
+
+  /* filet de separateur fin et chaud (au lieu du gris froid) */
+  .miam-filet {
+    @apply h-px w-full bg-[#EAE3D6];
+  }
+
+  /* badge "Du jour" : puce blanche flottante sur la photo */
+  .miam-badge-jour {
+    @apply rounded-full bg-white/95 px-3 py-1 font-sans text-[10.5px] font-semibold
+           uppercase tracking-[0.12em] text-or-deep shadow-soft backdrop-blur-sm;
+  }
+
+  /* badge de prix : or fonce, texte clair (hero) */
+  .miam-prix-badge {
+    @apply rounded-full bg-or-deep px-3 py-1 font-inria text-[13px] font-bold
+           tracking-tight text-white;
+  }
+}
